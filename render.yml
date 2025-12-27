@@ -2,24 +2,24 @@ services:
   - type: web
     name: midosis-voice-backend
     env: python
-    region: oregon  # o la región más cercana a ti
+    region: oregon
     plan: free
     branch: main
+
     buildCommand: |
       pip install --upgrade pip
       pip install -r requirements_backend.txt
-      python -m spacy download es_core_news_sm
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+
+    startCommand: |
+      uvicorn main:app --host 0.0.0.0 --port 10000
+
     envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.13
       - key: NODEJS_SERVER_URL
         value: https://midosis.onrender.com
-      - key: PYTHON_VERSION
-        value: 3.10.0
       - key: ONESIGNAL_APP_ID
         value: a06e24c0-d853-453a-8067-3af7606bd7a7
-      - key: ONESIGNAL_API_KEY
-        value: os_v2_app_ubxcjqgyknctvadhhl3wa26xu4dacpq4y6wevo4ckszzawjrtjzme5t4lc3goavkyrlvqz2uklipirptz5fcspo4557yrgej7xaphjq
-       - key: MONGODB_URI
-        value: mongodb+srv://stivzeregga2014_db_user:jUW2FRZaCfJCUMlO@notifymidosis.zcpyiol.mongodb.net/medications?retryWrites=true&w=majority&appName=notifymidosis
+
     healthCheckPath: /health
     autoDeploy: true
