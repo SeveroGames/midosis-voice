@@ -1,0 +1,137 @@
+version: "3.1"
+
+nlu:
+- intent: saludar
+  examples: |
+    - hola
+    - buenos días
+    - buenas tardes
+    - buenas noches
+    - hey
+    - qué tal
+    - cómo estás
+
+- intent: despedir
+  examples: |
+    - adiós
+    - hasta luego
+    - nos vemos
+    - chao
+    - hasta mañana
+    - me voy
+
+- intent: afirmar
+  examples: |
+    - sí
+    - claro
+    - por supuesto
+    - correcto
+    - de acuerdo
+    - vale
+
+- intent: negar
+  examples: |
+    - no
+    - para nada
+    - incorrecto
+    - nunca
+    - negativo
+
+- intent: agradecer
+  examples: |
+    - gracias
+    - muchas gracias
+    - te agradezco
+    - mil gracias
+    - gracias por la ayuda
+
+- intent: preguntar_medicamento
+  examples: |
+    - [lisinopril](medicamento) para la presión
+    - mi medicina [metformina](medicamento)
+    - la [atorvastatina](medicamento)
+    - [ibuprofeno](medicamento) para el dolor
+    - necesito información sobre [losartán](medicamento)
+    - ¿qué es [amlodipino](medicamento)?
+    - [paracetamol](medicamento) dosis
+    - mi medicamento [omeprazol](medicamento)
+
+- intent: confirmar_toma
+  examples: |
+    - ¿tomé mi medicina?
+    - ¿ya tomé la pastilla?
+    - no recuerdo si tomé el medicamento
+    - ¿me tomé la dosis?
+    - verificar si tomé mi medicamento hoy
+    - confirmar toma de [metformina](medicamento)
+    - ¿tomé mi [lisinopril](medicamento) hoy?
+
+- intent: programar_recordatorio
+  examples: |
+    - recuérdame tomar mi medicina [a las 8](hora)
+    - programa un recordatorio para [las 14:30](hora)
+    - avísame a [las 20](hora) para tomar la pastilla
+    - recuérdame tomar [metformina](medicamento) [a las 8](hora)
+    - programa alarma para [mediodía](hora)
+    - quiero un recordatorio para [mañana a las 9](hora)
+
+- intent: consultar_horario
+  examples: |
+    - ¿a qué hora tomo mi medicina?
+    - horario de [atorvastatina](medicamento)
+    - ¿cada cuánto tomo [losartán](medicamento)?
+    - frecuencia de dosis de [metformina](medicamento)
+    - ¿cada cuántas horas [ibuprofeno](medicamento)?
+    - [cada 8 horas](intervalo)
+    - [cada 12 horas](intervalo)
+
+- intent: emergencia
+  examples: |
+    - me siento mal
+    - dolor en el pecho
+    - dificultad para respirar
+    - mareo intenso
+    - necesito ayuda urgente
+    - llama a emergencias
+    - situación de emergencia
+
+- intent: ayuda
+  examples: |
+    - ¿qué puedes hacer?
+    - necesito ayuda
+    - ¿cómo funciona esto?
+    - ¿para qué sirves?
+    - muéstrame opciones
+    - menú de ayuda
+
+- intent: fuera_tema
+  examples: |
+    - qué tiempo hace
+    - cuéntame un chiste
+    - noticias de hoy
+    - cómo cocinar pasta
+    - resultados de fútbol
+    - qué película ver
+
+- synonym: lisinopril
+  examples: |
+    - lisinopril
+    - prinvil
+    - zestril
+
+- synonym: metformina
+  examples: |
+    - metformina
+    - glucophage
+    - fortamet
+
+- synonym: atorvastatina
+  examples: |
+    - atorvastatina
+    - lipitor
+
+- synonym: omeprazol
+  examples: |
+    - omeprazol
+    - prilosec
+    - losec

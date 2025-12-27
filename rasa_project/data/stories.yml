@@ -1,0 +1,66 @@
+version: "3.1"
+
+stories:
+- story: saludo y pregunta por medicamento
+  steps:
+  - intent: saludar
+  - action: utter_saludar
+  - intent: preguntar_medicamento
+  - action: utter_preguntar_medicamento
+
+- story: camino feliz confirmar toma con medicamento
+  steps:
+  - intent: confirmar_toma
+    entities:
+    - medicamento
+  - slot_was_set:
+    - medicamento
+  - action: action_verificar_toma
+
+- story: confirmar toma sin medicamento
+  steps:
+  - intent: confirmar_toma
+  - action: utter_preguntar_medicamento
+  - intent: preguntar_medicamento
+    entities:
+    - medicamento
+  - slot_was_set:
+    - medicamento
+  - action: action_verificar_toma
+
+- story: programar recordatorio completo
+  steps:
+  - intent: programar_recordatorio
+    entities:
+    - medicamento
+    - hora
+  - slot_was_set:
+    - medicamento
+    - hora_recordatorio
+  - action: action_programar_recordatorio
+
+- story: emergencia médica
+  steps:
+  - intent: emergencia
+  - action: action_emergencia
+
+- story: fuera de tema y redirección
+  steps:
+  - intent: fuera_tema
+  - action: utter_fuera_tema
+  - intent: ayuda
+  - action: utter_ayuda
+
+- story: consulta de horario con medicamento
+  steps:
+  - intent: consultar_horario
+    entities:
+    - medicamento
+  - slot_was_set:
+    - medicamento
+  - action: action_consultar_medicamento
+
+- story: solicitar ayuda
+  steps:
+  - intent: ayuda
+  - action: utter_ayuda

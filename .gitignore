@@ -1,0 +1,293 @@
+# ============================================
+# PYTHON - ASISTENTE DE VOZ BACKEND
+# ============================================
+
+# Entornos virtuales
+venv/
+env/
+ENV/
+.venv/
+.conda/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+# ============================================
+# MODELOS Y DATOS PESADOS
+# ============================================
+
+# Modelos de Whisper (se descargan automáticamente)
+.cache/
+.cache/whisper/
+
+# Modelos de spaCy (se descargan automáticamente)
+**/.spacy/
+
+# Modelos de Coqui TTS
+models/
+!models/.gitkeep  # Mantener carpeta vacía
+
+# Archivos de audio temporales
+audio/
+!audio/.gitkeep   # Mantener carpeta vacía
+audio/*.wav
+audio/*.mp3
+audio/*.ogg
+audio/temp_*
+
+# Logs
+logs/
+*.log
+!logs/.gitkeep
+
+# ============================================
+# CONFIGURACIONES SENSIBLES
+# ============================================
+
+# Variables de entorno
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Credenciales
+credentials.yml
+secrets.json
+config_secret.json
+*.key
+*.pem
+*.cert
+*.crt
+
+# Configuraciones locales
+config_local.py
+settings_local.py
+
+# ============================================
+# SISTEMA OPERATIVO
+# ============================================
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+
+# ============================================
+# EDITORES E IDEs
+# ============================================
+
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Atom
+.atom/
+.atomic/
+
+# Vim
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+
+# ============================================
+# RASA SPECIFIC (si se usa)
+# ============================================
+
+# Rasa models
+models/
+*.tar.gz
+
+# Rasa conversation data
+data/stories.yml
+data/rules.yml
+data/nlu.yml
+
+# Rasa training results
+results/
+*.tsv
+
+# Rasa endpoints
+endpoints.yml
+
+# ============================================
+# FLUTTER / FRONTEND
+# ============================================
+
+# Flutter/Dart/Pub
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+
+# Android
+**/android/**/gradle-wrapper.jar
+**/android/.gradle
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/**/GeneratedPluginRegistrant.java
+
+# iOS
+**/ios/**/*.mode1v3
+**/ios/**/*.mode2v3
+**/ios/**/*.moved-aside
+**/ios/**/*.pbxuser
+**/ios/**/*.perspectivev3
+**/ios/**/*sync/
+**/ios/**/.sconsign.dblite
+**/ios/**/.tags*
+**/ios/**/.vagrant/
+**/ios/**/DerivedData/
+**/ios/**/Icon?
+**/ios/**/Pods/
+**/ios/**/.symlinks/
+**/ios/**/profile
+**/ios/**/xcuserdata
+**/ios/.generated/
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/app.flx
+**/ios/Flutter/app.zip
+**/ios/Flutter/flutter_assets/
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/ServiceDefinitions.json
+**/ios/Runner/GeneratedPluginRegistrant.*
+
+# ============================================
+# DOCKER (si se usa)
+# ============================================
+
+# Docker
+.docker/
+docker-compose.override.yml
+.dockerignore
+
+# ============================================
+# OTROS
+# ============================================
+
+# Comandos SQLite
+*.sqlite3
+*.db
+
+# Archivos temporales
+temp/
+tmp/
+*.tmp
+*.temp
+
+# Archivos de respaldo
+*.bak
+*.backup
+*.old
+
+# Archivos de migración (excepto iniciales)
+*/migrations/*.py
+!*/migrations/__init__.py
+
+# Archivos de sentry
+.sentry
+
+# Archivos de profiling
+.prof

@@ -1,0 +1,111 @@
+version: "3.1"
+
+intents:
+  - saludar
+  - despedir
+  - afirmar
+  - negar
+  - agradecer
+  - preguntar_medicamento
+  - confirmar_toma
+  - programar_recordatorio
+  - consultar_horario
+  - emergencia
+  - ayuda
+  - fuera_tema
+
+entities:
+  - medicamento
+  - dosis
+  - hora
+  - frecuencia
+  - intervalo
+
+slots:
+  medicamento:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: medicamento
+        intent: preguntar_medicamento
+      - type: from_entity
+        entity: medicamento
+        intent: confirmar_toma
+      - type: from_entity
+        entity: medicamento
+        intent: programar_recordatorio
+      - type: from_entity
+        entity: medicamento
+        intent: consultar_horario
+
+  hora_recordatorio:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: hora
+        intent: programar_recordatorio
+
+  ultima_toma:
+    type: text
+    mappings:
+      - type: custom
+    initial_value: "desconocido"
+
+  intervalo:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: intervalo
+        intent: consultar_horario
+
+responses:
+  utter_saludar:
+    - text: "¡Hola! Soy tu asistente de medicamentos. ¿En qué puedo ayudarte?"
+    - text: "¡Hola! ¿Cómo estás hoy?"
+    - text: "¡Buenos días! Estoy aquí para ayudarte con tus medicamentos."
+  
+  utter_despedir:
+    - text: "¡Adiós! Cuídate mucho."
+    - text: "Hasta luego. Recuerda tomar tus medicamentos a tiempo."
+    - text: "Nos vemos. No dudes en preguntarme si necesitas ayuda."
+  
+  utter_agradecer:
+    - text: "¡De nada! Estoy aquí para ayudarte."
+    - text: "Es un placer ayudarte."
+  
+  utter_preguntar_medicamento:
+    - text: "¿Sobre qué medicamento te gustaría información?"
+    - text: "¿De qué medicamento estás hablando?"
+  
+  utter_confirmar_toma:
+    - text: "Entiendo. ¿Ya tomaste tu medicamento hoy?"
+  
+  utter_programar_recordatorio:
+    - text: "Voy a programar un recordatorio para tomar {medicamento} a las {hora_recordatorio}."
+  
+  utter_consultar_horario:
+    - text: "Tu medicamento {medicamento} debe tomarse cada {intervalo} horas."
+  
+  utter_emergencia:
+    - text: "¡Esto suena serio! Debes contactar a tu médico inmediatamente o llamar al 911."
+    - text: "Esta es una emergencia médica. Por favor, busca atención médica de inmediato."
+  
+  utter_ayuda:
+    - text: "Puedo ayudarte a: 1) Recordar tomar medicamentos, 2) Programar recordatorios, 3) Informar sobre dosis, 4) Responder preguntas básicas."
+  
+  utter_fuera_tema:
+    - text: "Lo siento, solo puedo ayudarte con temas relacionados a medicamentos y salud."
+  
+  utter_default:
+    - text: "Lo siento, no entendí. ¿Podrías repetir?"
+    - text: "No estoy seguro de entender. ¿Puedes reformular la pregunta?"
+
+actions:
+  - action_verificar_toma
+  - action_programar_recordatorio
+  - action_consultar_medicamento
+  - action_emergencia
+
+session_config:
+  session_expiration_time: 60  # minutos
+  carry_over_slots_to_new_session: true
