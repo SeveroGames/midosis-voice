@@ -7,24 +7,17 @@ python-multipart==0.0.6
 torch==2.1.2
 torchaudio==2.1.2
 openai-whisper==20231117
-numpy==1.22.0
 
-# Coqui TTS
+# Coqui TTS (OBLIGA numpy 1.22.0)
+numpy==1.22.0
 TTS==0.21.2
-librosa==0.10.1
+librosa==0.10.0
 soundfile==0.12.1
 scipy==1.11.4
 
-# NLP básico
-spacy==3.7.2
-es-core-news-sm @ https://github.com/explosion/spacy-models/releases/download/es_core_news_sm-3.7.0/es_core_news_sm-3.7.0-py3-none-any.whl
-
-# Utilities
+# NLP ligero (NO spaCy pesado aquí)
 requests==2.31.0
-pydantic==2.5.0
 python-dotenv==1.0.0
 pyttsx3==2.90
-
-# Nuevas dependencias para recordatorios
 pydub==0.25.1
 python-dateutil==2.8.2
