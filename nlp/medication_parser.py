@@ -82,9 +82,9 @@ class MedicationParser:
         # 3. Extraer medicamento (MÉTODO MEJORADO)
         info["medication"] = self._extract_medication_improved(text_lower, info["action"])
         
-        # 4. Extraer dosis (PATRONES MEJORADOS)
+        # 4. Extraer dosis (PATRONES MEJORADOS) - CORREGIDO
         dosage_patterns = [
-            r'(\d+)\s*(mg|g|ml|mg|miligramos|mililitros|gramos|tableta|tabletas|cápsula|cápsulas|comprimido|comprimidos)',
+            r'(\d+)\s*(mg|g|ml|miligramos|mililitros|gramos|tableta|tabletas|cápsula|cápsulas|comprimido|comprimidos)',
             r'dosis\s+(?:de\s+)?(\d+)\s*(mg|g|ml)',
             r'(\d+)\s*(mg|g|ml)\s+(?:de\s+)?',
             r'tomar\s+(\d+)\s*(mg|g|ml|tableta)'
@@ -92,7 +92,8 @@ class MedicationParser:
         
         for pattern in dosage_patterns:
             match = re.search(pattern, text_lower)
-            if match:
+            # CORRECCIÓN: Verificar que match existe y tiene grupos
+            if match and match.groups():
                 cantidad = match.group(1)
                 unidad = match.group(2) if len(match.groups()) > 1 else 'mg'
                 info["dosage"] = f"{cantidad} {unidad}"
@@ -120,7 +121,7 @@ class MedicationParser:
         if not info["frequency"] and info["action"] == "add_medication":
             info["frequency"] = "Diario"
         
-        # 6. Extraer hora
+        # 6. Extraer hora - CORREGIDO
         time_patterns = [
             r'a las (\d{1,2})(?::(\d{2}))?\s*(?:de la\s+)?(mañana|tarde|noche|am|pm|a\.m\.|p\.m\.)?',
             r'(\d{1,2})\s*(?:de la\s+)?(mañana|tarde|noche)',
@@ -131,23 +132,29 @@ class MedicationParser:
         
         for pattern in time_patterns:
             match = re.search(pattern, text_lower)
+            # CORRECCIÓN: Verificar match y manejar grupos de forma segura
             if match:
-                hour = match.group(1) or "8"
-                minute = match.group(2) or "00"
-                period = match.group(3) or ""
+                # Obtener grupos de forma segura
+                groups = match.groups()
+                hour = groups[0] if groups and groups[0] else "8"
+                minute = groups[1] if len(groups) > 1 and groups[1] else "00"
+                period = groups[2] if len(groups) > 2 and groups[2] else ""
                 
                 # Convertir a 24h si es necesario
-                hour_int = int(hour)
-                if period and ('tarde' in period or 'noche' in period or 'pm' in period or 'p.m.' in period):
-                    if hour_int < 12:
-                        hour_int += 12
-                elif period and ('mañana' in period or 'am' in period or 'a.m.' in period) and hour_int == 12:
-                    hour_int = 0
-                
-                info["time"] = f"{hour_int:02d}:{minute}"
-                break
+                try:
+                    hour_int = int(hour)
+                    if period and ('tarde' in period or 'noche' in period or 'pm' in period or 'p.m.' in period):
+                        if hour_int < 12:
+                            hour_int += 12
+                    elif period and ('mañana' in period or 'am' in period or 'a.m.' in period) and hour_int == 12:
+                        hour_int = 0
+                    
+                    info["time"] = f"{hour_int:02d}:{minute}"
+                    break
+                except ValueError:
+                    continue
         
-        # 7. Extraer duración
+        # 7. Extraer duración - CORREGIDO
         duration_patterns = [
             r'por\s+(\d+)\s*(d[ií]as|d[ií]a|semanas|semana|meses|mes)',
             r'durante\s+(\d+)\s*(d[ií]as|d[ií]a)',
@@ -157,9 +164,10 @@ class MedicationParser:
         
         for pattern in duration_patterns:
             match = re.search(pattern, text_lower, re.IGNORECASE)
-            if match:
+            # CORRECCIÓN: Verificar que match existe y tiene grupos
+            if match and match.groups():
                 cantidad = match.group(1)
-                unidad = match.group(2)
+                unidad = match.group(2) if len(match.groups()) > 1 else "días"
                 info["duration"] = f"{cantidad} {unidad}"
                 break
         
@@ -236,7 +244,8 @@ class MedicationParser:
         
         for pattern in patterns:
             match = re.search(pattern, text, re.IGNORECASE)
-            if match:
+            # CORRECCIÓN: Verificar match y grupos
+            if match and match.groups():
                 candidate = match.group(1).lower()
                 # Filtrar palabras comunes
                 if (len(candidate) > 3 and 
@@ -269,7 +278,8 @@ class MedicationParser:
         
         # Extracción simple
         med_match = re.search(r"(?:medicina|medicamento|pastilla)\s+(\w+)", text_lower)
-        if med_match:
+        # CORRECCIÓN: Verificar match y grupos
+        if med_match and med_match.groups():
             info["medication"] = med_match.group(1).capitalize()
         
         return info
