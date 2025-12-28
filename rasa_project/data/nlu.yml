@@ -113,6 +113,36 @@ nlu:
     - resultados de fútbol
     - qué película ver
 
+- intent: mi_dosis_agregar
+  examples: |
+    - Mi Dosis agregame [paracetamol](medicamento) de [500 mg](dosis) a las [8 de la mañana](hora) con frecuencia [cada 12 horas](frecuencia) por [14 días](duracion)
+    - Dosis necesito [ibuprofeno](medicamento) [400 mg](dosis) cada [8 horas](frecuencia) por [7 días](duracion)
+    - Asistente añádeme [omeprazol](medicamento) [20 mg](dosis) en la [noche](hora) [diario](frecuencia) por [30 días](duracion)
+    - [agrégame](accion) [metformina](medicamento) [1000 mg](dosis)
+    - [quiero agregar](accion) [lisinopril](medicamento) [10 mg](dosis) [a las 8 am](hora)
+    - [necesito](accion) [atorvastatina](medicamento) [20 mg](dosis) [cada noche](hora)
+    - [ponme](accion) [losartán](medicamento) [50 mg](dosis) [después del desayuno](hora)
+    - [programar](accion) [amlodipino](medicamento) [5 mg](dosis) [en la mañana](hora) [todos los días](frecuencia)
+    - [registrar](accion) [clonazepam](medicamento) [0.5 mg](dosis) [antes de dormir](hora) [cuando sea necesario](frecuencia)
+
+- intent: mi_dosis_listar
+  examples: |
+    - Mi Dosis ¿qué medicamentos tengo?
+    - Dosis muéstrame mis medicamentos
+    - Asistente listame lo que debo tomar hoy
+    - ¿Qué tengo programado para hoy?
+    - Muéstrame mi agenda de medicamentos
+    - Listar todos mis medicamentos
+
+- intent: mi_dosis_eliminar
+  examples: |
+    - Mi Dosis elimina [paracetamol](medicamento)
+    - Dosis quita [ibuprofeno](medicamento) de mi lista
+    - Asistente borra [omeprazol](medicamento)
+    - [elimina](accion) [metformina](medicamento)
+    - [quita](accion) [atorvastatina](medicamento)
+    - [cancela](accion) [losartán](medicamento)
+
 - synonym: lisinopril
   examples: |
     - lisinopril
@@ -135,3 +165,62 @@ nlu:
     - omeprazol
     - prilosec
     - losec
+
+- synonym: paracetamol
+  examples: |
+    - paracetamol
+    - acetaminofén
+    - tylenol
+    - panadol
+
+- synonym: ibuprofeno
+  examples: |
+    - ibuprofeno
+    - advil
+    - motrin
+
+- synonym: amlodipino
+  examples: |
+    - amlodipino
+    - norvasc
+
+- synonym: losartán
+  examples: |
+    - losartán
+    - cozaar
+
+- synonym: clonazepam
+  examples: |
+    - clonazepam
+    - klonopin
+    - rivotril
+
+# Agregar entidades nuevas para Dosis
+- synonym: cada 8 horas
+  examples: |
+    - cada 8 horas
+    - cada ocho horas
+    - tres veces al día
+    - cada 8h
+
+- synonym: cada 12 horas
+  examples: |
+    - cada 12 horas
+    - cada doce horas
+    - dos veces al día
+    - cada 12h
+
+- synonym: diario
+  examples: |
+    - diario
+    - todos los días
+    - una vez al día
+    - cada día
+    - diariamente
+
+- synonym: semanal
+  examples: |
+    - semanal
+    - una vez por semana
+    - cada semana
+    - semanalmente

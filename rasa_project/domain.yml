@@ -13,6 +13,9 @@ intents:
   - emergencia
   - ayuda
   - fuera_tema
+  - mi_dosis_agregar
+  - mi_dosis_listar
+  - mi_dosis_eliminar
 
 entities:
   - medicamento
@@ -20,92 +23,96 @@ entities:
   - hora
   - frecuencia
   - intervalo
+  - duracion
+  - accion
 
+# SIMPLIFICAR slots - Solo los esenciales
 slots:
   medicamento:
     type: text
+    initial_value: null
+    influence_conversation: true
     mappings:
       - type: from_entity
         entity: medicamento
-        intent: preguntar_medicamento
-      - type: from_entity
-        entity: medicamento
-        intent: confirmar_toma
-      - type: from_entity
-        entity: medicamento
-        intent: programar_recordatorio
-      - type: from_entity
-        entity: medicamento
-        intent: consultar_horario
 
   hora_recordatorio:
     type: text
+    initial_value: null
+    influence_conversation: true
     mappings:
       - type: from_entity
         entity: hora
-        intent: programar_recordatorio
 
-  ultima_toma:
-    type: text
-    mappings:
-      - type: custom
-    initial_value: "desconocido"
-
-  intervalo:
-    type: text
-    mappings:
-      - type: from_entity
-        entity: intervalo
-        intent: consultar_horario
+# ELIMINAR slots complejos que causan conflictos
+# RASA los manejará temporalmente en la conversación
 
 responses:
   utter_saludar:
-    - text: "¡Hola! Soy tu asistente de medicamentos. ¿En qué puedo ayudarte?"
-    - text: "¡Hola! ¿Cómo estás hoy?"
-    - text: "¡Buenos días! Estoy aquí para ayudarte con tus medicamentos."
-  
+    - text: "¡Hola! Soy tu asistente 'Mi Dosis'. ¿En qué puedo ayudarte?"
+    - text: "¡Hola! Estoy aquí para ayudarte con tus medicamentos."
+
   utter_despedir:
-    - text: "¡Adiós! Cuídate mucho."
-    - text: "Hasta luego. Recuerda tomar tus medicamentos a tiempo."
-    - text: "Nos vemos. No dudes en preguntarme si necesitas ayuda."
-  
+    - text: "¡Adiós! Recuerda tomar tus medicamentos a tiempo."
+    - text: "Hasta luego. Cuídate mucho."
+
   utter_agradecer:
-    - text: "¡De nada! Estoy aquí para ayudarte."
-    - text: "Es un placer ayudarte."
-  
-  utter_preguntar_medicamento:
-    - text: "¿Sobre qué medicamento te gustaría información?"
-    - text: "¿De qué medicamento estás hablando?"
-  
-  utter_confirmar_toma:
-    - text: "Entiendo. ¿Ya tomaste tu medicamento hoy?"
-  
+    - text: "¡De nada! Es un placer ayudarte."
+
+  utter_mi_dosis_agregar:
+    - text: "✅ Perfecto, agregando {medicamento}."
+
+  utter_mi_dosis_listar:
+    - text: "📋 Estos son tus medicamentos: [lista generada por la acción]"
+
+  utter_mi_dosis_eliminar:
+    - text: "🗑️ Eliminando {medicamento}."
+
+  utter_pedir_hora:
+    - text: "¿A qué hora deseas tomar {medicamento}?"
+    - text: "¿En qué horario prefieres la toma de {medicamento}?"
+
+  utter_pedir_frecuencia:
+    - text: "¿Con qué frecuencia? (diario, cada 8 horas, cada 12 horas)"
+    - text: "¿Cada cuánto tiempo debe tomarse?"
+
+  utter_pedir_duracion:
+    - text: "¿Por cuántos días/semanas?"
+
   utter_programar_recordatorio:
-    - text: "Voy a programar un recordatorio para tomar {medicamento} a las {hora_recordatorio}."
-  
+    - text: "Recordatorio programado para {medicamento} a las {hora_recordatorio}."
+
   utter_consultar_horario:
-    - text: "Tu medicamento {medicamento} debe tomarse cada {intervalo} horas."
-  
+    - text: "{medicamento} se toma según lo indicado por tu médico."
+
+  utter_preguntar_medicamento:
+    - text: "{medicamento} es un medicamento que debe usarse bajo supervisión médica."
+
+  utter_confirmar_toma:
+    - text: "¿Ya tomaste tu medicamento hoy?"
+
   utter_emergencia:
-    - text: "¡Esto suena serio! Debes contactar a tu médico inmediatamente o llamar al 911."
-    - text: "Esta es una emergencia médica. Por favor, busca atención médica de inmediato."
-  
+    - text: "¡Esta es una emergencia! Contacta a tu médico o llama al 911."
+
   utter_ayuda:
-    - text: "Puedo ayudarte a: 1) Recordar tomar medicamentos, 2) Programar recordatorios, 3) Informar sobre dosis, 4) Responder preguntas básicas."
-  
+    - text: "Puedo ayudarte a: agregar, listar o eliminar medicamentos con 'Mi Dosis'."
+
   utter_fuera_tema:
-    - text: "Lo siento, solo puedo ayudarte con temas relacionados a medicamentos y salud."
-  
+    - text: "Solo puedo ayudarte con temas de medicamentos."
+
   utter_default:
     - text: "Lo siento, no entendí. ¿Podrías repetir?"
-    - text: "No estoy seguro de entender. ¿Puedes reformular la pregunta?"
+    - text: "No estoy seguro de entender."
 
 actions:
   - action_verificar_toma
   - action_programar_recordatorio
   - action_consultar_medicamento
   - action_emergencia
+  - action_mi_dosis_agregar
+  - action_mi_dosis_listar
+  - action_mi_dosis_eliminar
 
 session_config:
-  session_expiration_time: 60  # minutos
-  carry_over_slots_to_new_session: true
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: false 

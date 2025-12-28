@@ -1,7 +1,5 @@
 recipe: default.v1
-
 language: es
-
 pipeline:
 - name: WhitespaceTokenizer
 - name: RegexFeaturizer
@@ -11,19 +9,22 @@ pipeline:
   min_ngram: 1
   max_ngram: 4
 - name: DIETClassifier
-  epochs: 100
-  constrain_similarities: true
+  epochs: 50    # Reducir para entrenamiento más rápido
+  entity_recognition: true
 - name: EntitySynonymMapper
-- name: ResponseSelector
-  epochs: 100
 - name: FallbackClassifier
   threshold: 0.7
 
 policies:
 - name: MemoizationPolicy
-- name: RulePolicy
+  max_history: 3    # Reducir historia
 - name: TEDPolicy
   max_history: 5
   epochs: 100
   constrain_similarities: true
-assistant_id: 20251220-172030-poky-gallery
+  use_gpu: false
+- name: RulePolicy
+  core_fallback_threshold: 0.3
+  core_fallback_action_name: "action_default_fallback"
+  enable_fallback_prediction: true
+assistant_id: 20251227-195342-acute-goldfinch

@@ -1,66 +1,112 @@
 version: "3.1"
 
 stories:
-- story: saludo y pregunta por medicamento
-  steps:
-  - intent: saludar
-  - action: utter_saludar
-  - intent: preguntar_medicamento
-  - action: utter_preguntar_medicamento
+  # Story 1: Saludar y despedir
+  - story: Saludo básico
+    steps:
+      - intent: saludar
+      - action: utter_saludar
+      - intent: despedir
+      - action: utter_despedir
 
-- story: camino feliz confirmar toma con medicamento
-  steps:
-  - intent: confirmar_toma
-    entities:
-    - medicamento
-  - slot_was_set:
-    - medicamento
-  - action: action_verificar_toma
+  # Story 2: Agregar medicamento COMPLETO (sin reglas conflictivas)
+  - story: Agregar medicamento completo Mi Dosis
+    steps:
+      - intent: mi_dosis_agregar
+        entities:
+          - medicamento: "paracetamol"
+          - dosis: "500 mg"
+          - hora: "8 de la mañana"
+          - frecuencia: "cada 12 horas"
+          - duracion: "14 días"
+      - action: action_mi_dosis_agregar
+      - action: utter_mi_dosis_agregar
+      - intent: agradecer
+      - action: utter_agradecer
 
-- story: confirmar toma sin medicamento
-  steps:
-  - intent: confirmar_toma
-  - action: utter_preguntar_medicamento
-  - intent: preguntar_medicamento
-    entities:
-    - medicamento
-  - slot_was_set:
-    - medicamento
-  - action: action_verificar_toma
+  # Story 3: Agregar medicamento PARCIAL (conversación guiada)
+  - story: Agregar medicamento paso a paso
+    steps:
+      # Paso 1: Usuario pide agregar medicamento
+      - intent: mi_dosis_agregar
+        entities:
+          - medicamento: "ibuprofeno"
+          - dosis: "400 mg"
+      - action: utter_pedir_hora
+      
+      # Paso 2: Usuario responde con hora
+      - intent: programar_recordatorio
+        entities:
+          - hora: "a las 14:00"
+      - action: utter_pedir_frecuencia
+      
+      # Paso 3: Usuario responde con frecuencia
+      - intent: consultar_horario
+        entities:
+          - intervalo: "cada 8 horas"
+      - action: utter_pedir_duracion
+      
+      # Paso 4: Usuario responde con duración
+      - intent: mi_dosis_agregar
+        entities:
+          - duracion: "7 días"
+      - action: action_mi_dosis_agregar
+      - action: utter_mi_dosis_agregar
 
-- story: programar recordatorio completo
-  steps:
-  - intent: programar_recordatorio
-    entities:
-    - medicamento
-    - hora
-  - slot_was_set:
-    - medicamento
-    - hora_recordatorio
-  - action: action_programar_recordatorio
+  # Story 4: Listar medicamentos
+  - story: Listar medicamentos Mi Dosis
+    steps:
+      - intent: mi_dosis_listar
+      - action: action_mi_dosis_listar
+      - action: utter_mi_dosis_listar
 
-- story: emergencia médica
-  steps:
-  - intent: emergencia
-  - action: action_emergencia
+  # Story 5: Eliminar medicamento
+  - story: Eliminar medicamento Mi Dosis
+    steps:
+      - intent: mi_dosis_eliminar
+        entities:
+          - medicamento: "paracetamol"
+      - action: action_mi_dosis_eliminar
+      - action: utter_mi_dosis_eliminar
+      - intent: agradecer
+      - action: utter_agradecer
 
-- story: fuera de tema y redirección
-  steps:
-  - intent: fuera_tema
-  - action: utter_fuera_tema
-  - intent: ayuda
-  - action: utter_ayuda
+  # Story 6: Programar recordatorio (usando intent existente)
+  - story: Programar recordatorio simple
+    steps:
+      - intent: programar_recordatorio
+        entities:
+          - medicamento: "metformina"
+          - hora: "a las 8"
+      - action: action_programar_recordatorio
+      - action: utter_programar_recordatorio
 
-- story: consulta de horario con medicamento
-  steps:
-  - intent: consultar_horario
-    entities:
-    - medicamento
-  - slot_was_set:
-    - medicamento
-  - action: action_consultar_medicamento
+  # Story 7: Consultar horario
+  - story: Consultar horario medicamento
+    steps:
+      - intent: consultar_horario
+        entities:
+          - medicamento: "atorvastatina"
+      - action: utter_consultar_horario
 
-- story: solicitar ayuda
-  steps:
-  - intent: ayuda
-  - action: utter_ayuda
+  # Story 8: Preguntar sobre medicamento
+  - story: Preguntar información medicamento
+    steps:
+      - intent: preguntar_medicamento
+        entities:
+          - medicamento: "lisinopril"
+      - action: utter_preguntar_medicamento
+
+  # Story 9: Confirmar toma
+  - story: Confirmar si tomó medicamento
+    steps:
+      - intent: confirmar_toma
+      - action: utter_confirmar_toma
+      - intent: afirmar
+      - action: action_verificar_toma
+
+  # Story 10: Negación
+  - story: Respuesta negativa
+    steps:
+      - intent: negar
+      - action: utter_default

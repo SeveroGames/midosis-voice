@@ -1,18 +1,23 @@
 # ============================================
-# PYTHON - ASISTENTE DE VOZ BACKEND
+# ENTORNOS VIRTUALES
 # ============================================
-
-# Entornos virtuales
 venv/
 env/
 ENV/
 .venv/
 .conda/
+venv_backend/
+venv_rasa/
 
-# Python bytecode
+# ============================================
+# PYTHON
+# ============================================
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyc
+*.pyo
+*.pyd
 *.so
 .Python
 build/
@@ -74,43 +79,41 @@ cython_debug/
 # ============================================
 # MODELOS Y DATOS PESADOS
 # ============================================
-
-# Modelos de Whisper (se descargan automáticamente)
 .cache/
 .cache/whisper/
-
-# Modelos de spaCy (se descargan automáticamente)
 **/.spacy/
+models/coqui/
+models/whisper/
+!models/.gitkeep
 
-# Modelos de Coqui TTS
-models/
-!models/.gitkeep  # Mantener carpeta vacía
-
-# Archivos de audio temporales
+# ============================================
+# ARCHIVOS TEMPORALES Y AUDIO
+# ============================================
 audio/
-!audio/.gitkeep   # Mantener carpeta vacía
-audio/*.wav
-audio/*.mp3
-audio/*.ogg
+!audio/.gitkeep
 audio/temp_*
+*.wav
+*.mp3
+*.ogg
 
-# Logs
+temp/
+tmp/
+*.tmp
+*.temp
+
+# ============================================
+# LOGS
+# ============================================
 logs/
-*.log
 !logs/.gitkeep
+*.log
 
 # ============================================
 # CONFIGURACIONES SENSIBLES
 # ============================================
-
-# Variables de entorno
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# Credenciales
+.env.*
+!env.example
 credentials.yml
 secrets.json
 config_secret.json
@@ -118,15 +121,12 @@ config_secret.json
 *.pem
 *.cert
 *.crt
-
-# Configuraciones locales
 config_local.py
 settings_local.py
 
 # ============================================
 # SISTEMA OPERATIVO
 # ============================================
-
 # macOS
 .DS_Store
 .DS_Store?
@@ -134,7 +134,6 @@ settings_local.py
 .Spotlight-V100
 .Trashes
 ehthumbs.db
-Thumbs.db
 
 # Windows
 Thumbs.db
@@ -148,8 +147,6 @@ $RECYCLE.BIN/
 # ============================================
 # EDITORES E IDEs
 # ============================================
-
-# VS Code
 .vscode/
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -157,20 +154,16 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 *.code-workspace
 
-# PyCharm
 .idea/
 *.iml
 *.ipr
 *.iws
 
-# Jupyter Notebook
 .ipynb_checkpoints
 
-# Sublime Text
 *.sublime-workspace
 *.sublime-project
 
-# Atom
 .atom/
 .atomic/
 
@@ -180,33 +173,24 @@ $RECYCLE.BIN/
 *.un~
 Session.vim
 .netrwhist
-*~
 
 # ============================================
-# RASA SPECIFIC (si se usa)
+# RASA (si se usa)
 # ============================================
-
-# Rasa models
-models/
-*.tar.gz
-
-# Rasa conversation data
+rasa_project/.rasa/
+rasa_project/models/
+rasa_project/results/
 data/stories.yml
 data/rules.yml
 data/nlu.yml
-
-# Rasa training results
 results/
 *.tsv
-
-# Rasa endpoints
+*.tar.gz
 endpoints.yml
 
 # ============================================
 # FLUTTER / FRONTEND
 # ============================================
-
-# Flutter/Dart/Pub
 **/doc/api/
 **/ios/Flutter/.last_build_id
 .dart_tool/
@@ -255,39 +239,25 @@ build/
 **/ios/Runner/GeneratedPluginRegistrant.*
 
 # ============================================
-# DOCKER (si se usa)
+# BASE DE DATOS Y DOCKER
 # ============================================
+*.sqlite3
+*.db
 
-# Docker
 .docker/
 docker-compose.override.yml
 .dockerignore
 
 # ============================================
-# OTROS
+# VARIOS
 # ============================================
-
-# Comandos SQLite
-*.sqlite3
-*.db
-
-# Archivos temporales
-temp/
-tmp/
-*.tmp
-*.temp
-
-# Archivos de respaldo
 *.bak
 *.backup
 *.old
 
-# Archivos de migración (excepto iniciales)
+# Migraciones (excepto __init__.py)
 */migrations/*.py
 !*/migrations/__init__.py
 
-# Archivos de sentry
 .sentry
-
-# Archivos de profiling
 .prof
